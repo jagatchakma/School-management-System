@@ -52,7 +52,6 @@ public class AddStudentForm extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         jSpinner1 = new javax.swing.JSpinner();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -66,12 +65,12 @@ public class AddStudentForm extends javax.swing.JFrame {
         jTextField_LName = new javax.swing.JTextField();
         jRadioButton_Male = new javax.swing.JRadioButton();
         jRadioButton_Female = new javax.swing.JRadioButton();
-        jDateChooser = new com.toedter.calendar.JDateChooser();
         jTextField_PNumber = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea_Address = new javax.swing.JTextArea();
         jButton_AddStudent = new javax.swing.JButton();
         jButton_Cancel = new javax.swing.JButton();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,8 +104,6 @@ public class AddStudentForm extends javax.swing.JFrame {
         jRadioButton_Male.setText("  Male");
 
         jRadioButton_Female.setText("  Female");
-
-        jDateChooser.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jTextField_PNumber.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField_PNumber.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -191,15 +188,11 @@ public class AddStudentForm extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jRadioButton_Male)
                     .addComponent(jRadioButton_Female))
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel5)
-                        .addGap(26, 26, 26))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)))
+                    .addComponent(jLabel5)
+                    .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jTextField_PNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -321,7 +314,6 @@ public class AddStudentForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton_AddStudent;
     private javax.swing.JButton jButton_Cancel;
     private com.toedter.calendar.JDateChooser jDateChooser;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -36,7 +36,6 @@ public class Student {
             } catch (SQLException ex) {
                 Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
         }
         // 'u' for upate data
 //        if(operation == 'u'){
@@ -59,7 +58,26 @@ public class Student {
 //            }
 //            
 //        }
-        
+        //for delate
+        if(operation == 'd'){
+            try {
+                ps = con.prepareStatement("DELETE FROM `student` WHERE `id` = ?");
+//                ps.setString(1, fname);
+//                ps.setString(2, lname);
+//                ps.setString(3, sex);
+//                ps.setString(4, bdate);
+//                ps.setString(5, phone);
+//                ps.setString(6, address);
+                ps.setInt(1, id);
+                
+                if(ps.executeUpdate() > 0){
+                    JOptionPane.showMessageDialog(null, "Student delete ?");
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     //
     public void fillStudentJTable(JTable table, String valueToSearch){

@@ -5,6 +5,8 @@
  */
 package schoolmanagement;
 
+import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,6 +27,7 @@ public class ManageStudentForm extends javax.swing.JFrame {
      * Creates new form ManageStudentForm
      */
     Student std = new Student();
+    DefaultTableModel model;
     
     public ManageStudentForm() {
         initComponents();
@@ -33,9 +36,15 @@ public class ManageStudentForm extends javax.swing.JFrame {
         // to make default close
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
         
+        model = (DefaultTableModel)jTable1.getModel();
+        jTable1.setRowHeight(30);
+        jTable1.setShowGrid(true);
+        jTable1.setGridColor(Color.GRAY);
+        //jTable1.setBackground(Color.darkGray);
+        
         ButtonGroup bg = new ButtonGroup();
         bg.add(jRadioButton_Male1);
-        bg.add(jRadioButton_Female1); 
+        bg.add(jRadioButton_Female1);
         
         std.fillStudentJTable(jTable1, "");
     }
@@ -62,7 +71,6 @@ public class ManageStudentForm extends javax.swing.JFrame {
         jTextField_LName1 = new javax.swing.JTextField();
         jRadioButton_Male1 = new javax.swing.JRadioButton();
         jRadioButton_Female1 = new javax.swing.JRadioButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jTextField_PNumber1 = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea_Address1 = new javax.swing.JTextArea();
@@ -75,6 +83,7 @@ public class ManageStudentForm extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel_ID1 = new javax.swing.JLabel();
         jTextField_val_Find = new javax.swing.JTextField();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1060, 506));
@@ -110,8 +119,6 @@ public class ManageStudentForm extends javax.swing.JFrame {
 
         jRadioButton_Female1.setText("  Female");
 
-        jDateChooser1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
         jTextField_PNumber1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField_PNumber1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -134,10 +141,16 @@ public class ManageStudentForm extends javax.swing.JFrame {
 
         jButton_RemoveStudent.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton_RemoveStudent.setText("Remove");
+        jButton_RemoveStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_RemoveStudentActionPerformed(evt);
+            }
+        });
 
         jLabel_ID.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel_ID.setText("ID");
 
+        jTextField_Std_Id.setEditable(false);
         jTextField_Std_Id.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jButton_Edit.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -159,6 +172,11 @@ public class ManageStudentForm extends javax.swing.JFrame {
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
+            }
+        });
+        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTable1KeyReleased(evt);
             }
         });
         jScrollPane3.setViewportView(jTable1);
@@ -185,54 +203,51 @@ public class ManageStudentForm extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(66, 66, 66)
-                                .addComponent(jLabel_ID))
-                            .addComponent(jLabel10)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel11))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addComponent(jLabel12))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jLabel13))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel14))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel15)))
-                        .addGap(58, 58, 58))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton_RemoveStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(66, 66, 66)
+                        .addComponent(jLabel_ID))
+                    .addComponent(jLabel10)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField_FName1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_LName1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel11))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel12))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel13))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel14))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel15))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_RemoveStudent)))
+                .addGap(42, 42, 42)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField_Std_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                            .addComponent(jTextField_FName1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField_LName1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jRadioButton_Male1)
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioButton_Female1))
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_PNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(jButton_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(59, 59, 59)
-                                .addComponent(jButton_AddStudent1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField_PNumber1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(4, 4, 4)
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField_Std_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jButton_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(jButton_AddStudent1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -265,9 +280,6 @@ public class ManageStudentForm extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(jLabel15))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(jLabel16))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField_Std_Id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -277,16 +289,21 @@ public class ManageStudentForm extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jTextField_FName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)
-                                .addComponent(jTextField_LName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButton_Male1)
-                                    .addComponent(jRadioButton_Female1))
-                                .addGap(16, 16, 16)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(37, 37, 37)
+                                        .addComponent(jLabel16))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jTextField_FName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(24, 24, 24)
+                                        .addComponent(jTextField_LName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(26, 26, 26)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jRadioButton_Male1)
+                                            .addComponent(jRadioButton_Female1))))
+                                .addGap(18, 18, 18)
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
                                 .addComponent(jTextField_PNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(25, 25, 25)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -333,7 +350,7 @@ public class ManageStudentForm extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         int rowIndex = jTable1.getSelectedRow();
-        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        //DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         
         jTextField_Std_Id.setText(model.getValueAt(rowIndex, 0).toString());
         jTextField_FName1.setText(model.getValueAt(rowIndex, 1).toString());
@@ -372,15 +389,15 @@ public class ManageStudentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_val_FindKeyReleased
 
     public boolean varifiText(){
-        if(jTextField_FName.getText().equals("") || jTextField_LName.getText().equals("") || 
-                jDateChooser.getDate() == null || jTextField_Std_Id.getText().equals("") || 
-                jTextField_PNumber.getText().equals("") || jTextArea_Address.getText().equals("")){
+        if(jTextField_FName1.getText().equals("") || jTextField_LName1.getText().equals("") || 
+                jDateChooser1.getDate() == null || jTextField_Std_Id.getText().equals("") || 
+                jTextField_PNumber1.getText().equals("") || jTextArea_Address1.getText().equals("")){
             JOptionPane.showMessageDialog(null, "One or more field are empty", "Empty field", 2);
             
             return false;
         }
         // choose a date higher then the current date
-        else if(jDateChooser.getDate().compareTo(new Date()) > 0){
+        else if(jDateChooser1.getDate().compareTo(new Date()) > 0){
             JOptionPane.showMessageDialog(null, "Futur date are no`t allowed", "Date error ", 2);
             return false;
         }else{
@@ -390,26 +407,84 @@ public class ManageStudentForm extends javax.swing.JFrame {
     
     private void jButton_EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_EditActionPerformed
         // TODO add your handling code here:
-//        String fname = jTextField_FName1.getText();
-//        String lname = jTextField_LName1.getText();
-//        String phone = jTextField_PNumber1.getText();
-//        String address = jTextArea_Address1.getText();
-//        int id = Integer.valueOf(jTextField_Std_Id.getText());    //...........
-//        String sex = "Male";
-//        if(jRadioButton_Female1.isSelected()){
-//            sex = "Female";
-//        }
-//
-//        if(varifiText()){
-//
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//            String bdate = dateFormat.format(jDateChooser1.getDate());
-//
-//            Student std = new Student();
-//            std.insertUpdateDeleteStudent('u', id, fname, lname, sex, bdate, phone, address);
-//            //Main_form.jLabel_StdCount.setText("Student count "+Integer.toString(MyFunction.countData("student")));
-//        }
+        String fname = jTextField_FName1.getText();
+        String lname = jTextField_LName1.getText();
+        String phone = jTextField_PNumber1.getText();
+        String address = jTextArea_Address1.getText();
+        int id = Integer.valueOf(jTextField_Std_Id.getText());    //...........
+        String sex = "Male";
+        if(jRadioButton_Female1.isSelected()){
+            sex = "Female";
+        }
+
+        if(varifiText()){
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String bdate = dateFormat.format(jDateChooser1.getDate());
+
+            Student std = new Student();
+            std.insertUpdateDeleteStudent('u', id, fname, lname, sex, bdate, phone, address);
+            //Main_form.jLabel_StdCount.setText("Student count "+Integer.toString(MyFunction.countData("student")));
+        }
     }//GEN-LAST:event_jButton_EditActionPerformed
+
+    private void jButton_RemoveStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RemoveStudentActionPerformed
+        // TODO add your handling code here:
+        if(jTextField_Std_Id.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "No student selected");
+        }
+        int id = Integer.valueOf(jTextField_Std_Id.getText());
+        std.insertUpdateDeleteStudent('d', id, null, null, null, null, null, null);
+        std.fillStudentJTable(jTable1, "");
+        // delete from table
+        jTable1.setModel(new DefaultTableModel(null, new Object[] {"Id","First Name","Last Name","Sex","BirthDate","Phone","Address"})); 
+        std.fillStudentJTable(jTable1, jTextField_val_Find.getText());
+        // to view total amount of student
+        Main_form.jLabel_StdCount.setText("Student count "+Integer.toString(MyFunction.countData("student")));
+        
+        jTextField_Std_Id.setText("");
+        jTextField_FName1.setText("");
+        jTextField_LName1.setText("");
+        jRadioButton_Male1.setSelected(false);
+        jRadioButton_Female1.setSelected(false);
+        jDateChooser1.setDate(null);
+        jTextField_PNumber1.setText("");
+        jTextArea_Address1.setText("");
+        
+    }//GEN-LAST:event_jButton_RemoveStudentActionPerformed
+
+    private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
+        // TODO add your handling code here:
+        
+        int rowIndex = jTable1.getSelectedRow();
+        
+        if(evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN){
+            
+            jTextField_Std_Id.setText(model.getValueAt(rowIndex, 0).toString());
+            jTextField_FName1.setText(model.getValueAt(rowIndex, 1).toString());
+            jTextField_LName1.setText(model.getValueAt(rowIndex, 2).toString());
+            jTextField_PNumber1.setText(model.getValueAt(rowIndex, 5).toString());
+            jTextArea_Address1.setText(model.getValueAt(rowIndex, 6).toString());
+            
+            
+            
+            // for sex 
+            if(model.getValueAt(rowIndex, 3).toString().equals("Male")){
+                jRadioButton_Male1.setSelected(true);
+                jRadioButton_Female1.setSelected(false);
+            }else{
+                jRadioButton_Male1.setSelected(false);
+                jRadioButton_Female1.setSelected(true);
+            }
+            Date bdate;
+            try {
+                bdate = new SimpleDateFormat("yyyy-MM-dd").parse(model.getValueAt(rowIndex, 4).toString());
+                jDateChooser1.setDate(bdate);
+            } catch (ParseException ex) {
+                Logger.getLogger(ManageStudentForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jTable1KeyReleased
 
     /**
      * @param args the command line arguments
@@ -447,14 +522,10 @@ public class ManageStudentForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton_AddStudent;
     private javax.swing.JButton jButton_AddStudent1;
-    private javax.swing.JButton jButton_Cancel;
     private javax.swing.JButton jButton_Edit;
     private javax.swing.JButton jButton_RemoveStudent;
-    private com.toedter.calendar.JDateChooser jDateChooser;
     private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -462,33 +533,18 @@ public class ManageStudentForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel_ID;
     private javax.swing.JLabel jLabel_ID1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton_Female;
     private javax.swing.JRadioButton jRadioButton_Female1;
-    private javax.swing.JRadioButton jRadioButton_Male;
     private javax.swing.JRadioButton jRadioButton_Male1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     public static javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea_Address;
     private javax.swing.JTextArea jTextArea_Address1;
-    private javax.swing.JTextField jTextField_FName;
     private javax.swing.JTextField jTextField_FName1;
-    private javax.swing.JTextField jTextField_LName;
     private javax.swing.JTextField jTextField_LName1;
-    private javax.swing.JTextField jTextField_PNumber;
     private javax.swing.JTextField jTextField_PNumber1;
     private javax.swing.JTextField jTextField_Std_Id;
     private javax.swing.JTextField jTextField_val_Find;
